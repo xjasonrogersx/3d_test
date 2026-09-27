@@ -1,0 +1,5 @@
+numpy
+pyglet
+pyrender==0.1.45
+trimesh
+networkx>=2.8
