@@ -31,7 +31,7 @@ def load_scene(asset_path: Path) -> tuple[pyrender.Scene, pyrender.PerspectiveCa
 
 	render_scene = pyrender.Scene(
 		bg_color=[0.035, 0.045, 0.06, 1.0],
-		ambient_light=[0.18, 0.18, 0.18],
+		ambient_light=[1.0, 1.0, 1.0],
 	)
 	meshes = loaded.dump(concatenate=False)
 	render_scene.add(pyrender.Mesh.from_trimesh(meshes, smooth=False))
@@ -43,11 +43,6 @@ def load_scene(asset_path: Path) -> tuple[pyrender.Scene, pyrender.PerspectiveCa
 		zfar=extent * 100.0,
 	)
 	camera_node = render_scene.add(camera, name="orbit_camera")
-
-	light = pyrender.DirectionalLight(color=np.ones(3), intensity=3.0)
-	render_scene.add(light, pose=np.eye(4))
-	fill_light = pyrender.PointLight(color=np.ones(3), intensity=extent * 2.0)
-	render_scene.add(fill_light, pose=np.eye(4))
 
 	render_scene._orbit_center = np.asarray(center, dtype=np.float32)
 	render_scene._orbit_extent = extent
